@@ -68,6 +68,10 @@ Unignoring folder/file on lower level (for example, to add one bin folder or one
 
 `rebase -x '<cmd>'` to insert `<cmd>` after every step of an interactive rebase. Various commands can also be inserted manually in-between.
 
+Doing bisect with extra cherry-pick. Meaning that if we can not reproduce something as-is, but need to modify code first, bisect additionally does cherry-pick every time.
+ 
+
+
 ## Remotes
 
 `git push master:refs/private/andrey` It can be configured into which folder we push remotes. 
