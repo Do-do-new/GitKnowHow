@@ -1,0 +1,197 @@
+<!-- TOC -->
+<ul>
+<li><a href="#purpose-of-this-document">Purpose of this document</a></li>
+<li><a href="#foreword">Foreword</a></li>
+<li><a href="#1-principles">1. Principles</a>
+<ul>
+<li><a href="#11-saving-your-progress">1.1. Saving your progress</a></li>
+<li><a href="#12-branching">1.2. Branching</a></li>
+</ul></li>
+<li><a href="#2-how-tos-in-normal-development">2. How-tos in normal development</a>
+<ul>
+<li><a href="#21-starting-a-feature">2.1. Starting a feature</a></li>
+<li><a href="#22-working-on-a-feature">2.2. Working on a feature</a></li>
+<li><a href="#23-getting-updates-from-others">2.3. Getting updates from others</a></li>
+<li><a href="#24-switching-between-features">2.4. Switching between features</a></li>
+<li><a href="#25-finishing-a-feature">2.5. Finishing a feature</a></li>
+<li><a href="#26-reviewing-a-feature">2.6. Reviewing a feature</a></li>
+<li><a href="#27-merging-a-feature">2.7. Merging a feature</a></li>
+</ul></li>
+<li><a href="#3-how-tos-in-release-process">3. How-tos in release process</a>
+<ul>
+<li><a href="#31-starting-release">3.1. Starting release</a></li>
+<li><a href="#32-finishing-release">3.2. Finishing release</a></li>
+<li><a href="#33-starting-hotfix">3.3. Starting hotfix</a></li>
+<li><a href="#34-finishing-hotfix">3.4. Finishing hotfix</a></li>
+</ul></li>
+<li><a href="#useful-references">Useful references</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="purpose-of-this-document">Purpose of this document</h2>
+<p>Git is a very flexible tool which allows a lot of operations.<br />
+That is why during the years several possible workflows appeared.<br />
+Whatever workflow (or their combination) team is using, it should be fully defined.</p>
+<p>Ther purpose of this document is to define such a flow.</p>
+<h2 id="foreword">Foreword</h2>
+<p>Below is a proposal how to use git in our projects.<br />
+It is based on best practices, originating from classical methods of working with git.<br />
+We are not going to go into too many details, but hope to provide enough info so that the process can be followed.</p>
+<p>Also we will not cover creating new projects and some other topics.<br />
+Still if you are interested in more, feel free to have a peek at some <a href="#useful-references">useful references</a> !<br />
+Also do not hesitate to ask colleagues, they will be happy to help you with this topic! Also if you learned something new, do not hesitate to share it with others!</p>
+<h2 id="principles">1. Principles</h2>
+<p>This section describes principles of using git.<br />
+Next section, <a href="#2-how-tos-in-normal-development">How-tos</a>, lists exact actions to be done for exact situations.</p>
+<h3 id="saving-your-progress">1.1. Saving your progress</h3>
+<p>Process of saving your current changes is pretty much the same in any workflow and, most likely, already familiar to you.</p>
+<ol type="1">
+<li><p>You make changes.<br />
+Once you think that you achieved some small milestone which you want to save, procede to the next step.<br />
+Don’t be shy about saving your work in git often - doing it often for each logical step you do helps manage your changes and “go back in time” easier.<br />
+It is quite okay to do up to several commits per hour.</p></li>
+<li><p>Select (also known as <em>add</em> or <em>stage</em>) the changes which you want to save now.<br />
+May be you changed several things - for example added a new model and also optimized some effects in an entirely different part of the project).<br />
+If it is the case, select now only a new model.</p></li>
+<li><p><em>Commit</em> your changes. It saves them locally, so your curent effort is now secure!<br />
+If you have more changes which logically is a separate piece of work, repeat steps 2 and 3 again.<br />
+This will make it easier for you and your teammates to see what was done, to conduct review, to merge changes with their own etc.</p></li>
+<li><p>If you want to back up you changes also on the server, you <em>push</em> them.<br />
+It can be done to make your changes visible to teammates, to continue working on another computer or just to back up your progress because you don’t trust your hard drive.</p></li>
+</ol>
+<h3 id="branching">1.2. Branching</h3>
+<p>Using branches - various versions of history - is one of the most powerful features of git.<br />
+The way branches are used defines git workflow.<br />
+It is very important to fully define how the branches are used and to follow these rules, to take the most out of git.<br />
+Over the years best practices of using branches were formed, which proved to be very efficient.<br />
+This part will describe proposed way of using branches based on some of these best practices.</p>
+<p>The following best practices are important:</p>
+<ol type="1">
+<li><em>Feature-branch approach</em><br />
+It means that for every specific self-consistent feature which requires more than one commit (see <a href="#11-saving-your-progress">1.1. Saving your progress</a>, point 3), separate branch should be created.<br />
+This approach has many benefits:</li>
+</ol>
+<ul>
+<li>possible to share only desired changes, and not all changes which you have done. It allows doing several tasks at the same time.<br />
+</li>
+<li>easy to switch to another task if something is not working. Even one person in this case can work on several tasks at the same time, and it is not a problem if one task can not be finished - just leave that feature-branch alone until the time is right (you know how to finish it, someone else finished something which you need or simply you have enough time for this one)</li>
+<li>easy to find changes contributing to this feature later if we need to check how something was done</li>
+<li>easy to review</li>
+<li>this approach is scalable (regardless of how many people there are)</li>
+</ul>
+<ol start="2" type="1">
+<li><p><em>Using Development branch</em><br />
+Additionally to feature branches, so-called development branch should be used. Whenever some feature is finished, it should be merged into development branch. Whenever new feature is started, it should be started at the top of development branch.</p></li>
+<li><p><em>4-eyes principle</em><br />
+It is a good idea if the feature branch is merged into development branch not by the feature branch author, but by someone else (reviewer). If there is a clear team leader, it can be done by him/her. If there is not, it can be done by a member who can understand/check this particular feature branch.</p></li>
+<li><p><em>Merge only into Development</em><br />
+This principle means that whenver feature is done, it is merged into Development branch <em>only</em>.</p></li>
+<li><em>Start from top on Development, keep up-to-date</em> Feature branches should be started from the top of development branch.<br />
+Feature branches should also be rebased on top of it.<br />
+This approach allows to have a very healthy easy-to-use history, rather when unhealthy history when people are merging branches randomly. Compare:<br />
+-<img src="./Docs/images/HealthyGitGraph.jpg" title="Healthy git graph" alt="healthy" />-<img src="./Docs/images/UnhealthyGitGraph.jpg" title="Unhealthy git graph" alt="unhealthy" /><br />
+Of course you don’t have to rebase your branch on Development once someone’s feature is merged. You do it in the following cases:</li>
+</ol>
+<ul>
+<li>you are finished with the branch. In this case you rebase it on top on development and request somebody to merge it</li>
+<li>you need that feature to continue with your feature</li>
+<li>you anticipate conflicts and want to solve them as early as possible</li>
+<li>you just want to be up-to-date with your colleagues work</li>
+</ul>
+<ol start="4" type="1">
+<li><p><em>Keep branches small</em><br />
+Usually it is a good idea to keep branches relatively small, because it is simple to merge/rebase/review them.<br />
+Almost any big feature can be separated into smaller features and thus smaller bracnhes.</p></li>
+<li><em>Naming convention for branches</em><br />
+It is practical to name branches consistently. Git allows grouping branches by <em>group/branch</em> name notation. Most common approach which we strongly recommend using is:</li>
+</ol>
+<ul>
+<li>feature/nameOfFeature for features</li>
+<li>bugfix/nameOfBugfix for bugfixes during development</li>
+<li><p>hotfix/nameOfHotfixes for hot fixes on a release version</p></li>
+<li><p>release/v_xx_yy_zz for performing minor changes to get the release up and running</p></li>
+</ul>
+<p>If the team works with any tool which has tasks (Trello, Jira, TFS etc.) it is also a good idea to add ID of the task when naming a branch.<br />
+E.g. if in Trello you have a card ID 131 (by defaults IDs in trello are hidden, but it is easy to show them), in which you say you want to make a splash screen, you create a new branch: feature/131_SplashScreen</p>
+<p>Doing so provides traceability, which allows to use git for finding code and even implementation history for specific features!</p>
+<h2 id="how-tos-in-normal-development">2. How-tos in normal development</h2>
+<p>This section describes what actions you should take in which situation, effectively fully defining the workflow.</p>
+<p>Since different people might use different guis, this tutorial just names an action and provides a git command. If you can not find appopriate action in your UI of choice (SourceTree, GitKraken, Tower, GitExtensions etc.), don’t hesistate to ask the team or google!</p>
+<p>In this section you will notice that using feature-branch aproach makes operations with branches very intuitive, because what you do with a feature - same you do with a branch!</p>
+<h3 id="starting-a-feature">2.1. Starting a feature</h3>
+<p>If you want to start a new feature, you<br />
+1) pull Development branch<br />
+<code>git checkout Development</code><br />
+<code>git pull</code> 2) create a new branch at the tip of development branch<br />
+<code>git checkout -b feature/id_featureName</code><br />
+Naturally id and featureName are your own, lik1 131_SplashScreen.</p>
+<h3 id="working-on-a-feature">2.2. Working on a feature</h3>
+<p>You just keep adding and committing your changes, making your branch grow!<br />
+Here we assume that you are quite familiar with these operations, if not, do not hesitate to ask your team mates or google!</p>
+<h3 id="getting-updates-from-others">2.3. Getting updates from others</h3>
+<p>Fetch the changes from others to see who is doing what.<br />
+<code>git fetch --all --prune</code></p>
+<p><code>--prune</code> here deletes branches which do not exist anymore on the server.</p>
+<p><strong>Important:</strong> do not merge changes of others directly, as stated in <a href="#12-branching">1.2. Branching</a> !</p>
+<p>Rather, if you fill that you need to get in sync, rebase your branch on Development branch:</p>
+<p><code>git checkout Development</code><br />
+<code>git pull</code><br />
+<code>git checkout feature/id_featureName</code> <code>git rebase development</code></p>
+<p>This way the content you get will be more stable, compared to merging branches from others directly! Also history will be clean and useful.</p>
+<h3 id="switching-between-features">2.4. Switching between features</h3>
+<p>If you want to work on some other feature, just switch a branch. If it is a new feature, make also a new branch, as described above. Otherwise, just switch branches:<br />
+<code>git checkout feature/anotherId_anotherFeatureName</code></p>
+<h3 id="finishing-a-feature">2.5. Finishing a feature</h3>
+<p>When you are done with the feature, rebase it on Development and push it to the server. You can also push it more often as a back up measure or to work on different computers.</p>
+<p><code>git rebase Development</code><br />
+<code>git push</code></p>
+<p>Now you want your feature to get merged into Development.<br />
+It is a good idea to let someone else do that for you, because it implies a review. There are different ways to let a reviewer know that you want your feature merged: * create a pull request in bitbucket (or whatever site is used).<br />
+It is especially useful for big features, because in bitbucket you can comment on the changes, discuss things related to this particular feature - and it will be easy to find this discussion later - and more. * just let a reviewer know that you want your branch merged per chat or whatever other communication means * by using a naming convention. For example, you add a prefix <code>merge/</code> before your branch. Just rename it:</p>
+<p><code>git branch -m whateverName merge/whateverName</code></p>
+<p>If you want a particular person to review your change, you can specify that as well in the name, for example:</p>
+<p><code>git branch -m whateverName merge/reviewerName/whateverName</code></p>
+<p><em>But, in most cases, it is better if one person is responsible for merging branches into Development!</em></p>
+<h3 id="reviewing-a-feature">2.6. Reviewing a feature</h3>
+<p>Now if someone wants to review their changes, feel honored to do so! :-) Have a look if there changes compile, if the project runs okay and if you like there changes in general.</p>
+<p>If you are not happy with the result, ask that person to add corrections to their feature branch!</p>
+<h3 id="merging-a-feature">2.7. Merging a feature</h3>
+<p>Once you are happy with the changes in the branch, peform a merge:</p>
+<p><code>git checkout Development</code><br />
+<code>git merge feature/id_Name --no-ff</code><br />
+<code>--no -ff</code> here means no fast forward or <em>always create a merge commit</em>. So effectctively you always get a commit which aggregates the whole feature. This way, when the branch is deleted, you can still find it by the commit name. And also check either aggregated changes, or commit by commit.</p>
+<h2 id="how-tos-in-release-process">3. How-tos in release process</h2>
+<h3 id="starting-release">3.1. Starting release</h3>
+<p>Whenever we feel like creating a release, we create a branch release/numberOfRelease. Their we do bugfixes and fine-tuning for the release. This way developers not involved in release can keep working on their features.</p>
+<h3 id="finishing-release">3.2. Finishing release</h3>
+<p>Once the state is nice, we can merge this release branch into master branch and create a tag there with the version number. Here is our release!</p>
+<p>Also it is a good idea to merge back into Development, so that all of our fine-tuning becomes accessible to everybody.</p>
+<h3 id="starting-hotfix">3.3. Starting hotfix</h3>
+<p>Whenever hotfix is needed, i.e. we found a bug in a release and want a new one, but we don’t want to test all new features. Let’s say we want a new release which is like old one + fix.</p>
+<p>We create a hotfix from master branch, do out hotfix there.</p>
+<h3 id="finishing-hotfix">3.4. Finishing hotfix</h3>
+<p>Once we are fine with the hotfix, we merge it back to master and… done!</p>
+<p>Of course then we merge master branch into Development as well to make our fix accessible.</p>
+<h2 id="useful-references">Useful references</h2>
+<p>Original article on git flow<br />
+http://nvie.com/posts/a-successful-git-branching-model/</p>
+<p>Git cheat-sheets<br />
+https://www.git-tower.com/blog/git-cheat-sheet/<br />
+https://www.atlassian.com/git/tutorials/atlassian-git-cheatsheet<br />
+https://ndpsoftware.com/git-cheatsheet.html</p>
+<p>Atlassian description of the workflows:<br />
+https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow<br />
+https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow</p>
+<p>Git main site<br />
+https://git-scm.com/</p>
+<p>Git reference<br />
+https://git-scm.com/docs</p>
+<p>Git Pro book, most comprehensive manual on git<br />
+https://git-scm.com/book/en/v2</p>
+<p>Git glossary<br />
+https://mirrors.edge.kernel.org/pub/software/scm/git/docs/gitglossary.html</p>
+<p>List of git guis<br />
+https://git-scm.com/downloads/guis</p>
+<p>Couple of presentations from me on Git:<br />
+https://github.com/Nochdarus/GitKnowHow</p>
+<p>Nice web-based presentation on Git:<br />
+https://github.com/agross/git-reveal</p>
