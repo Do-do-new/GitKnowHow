@@ -13,6 +13,7 @@
     - [2.5. Finishing a feature](#25-finishing-a-feature)
     - [2.6. Reviewing a feature](#26-reviewing-a-feature)
     - [2.7. Merging a feature](#27-merging-a-feature)
+    - [2.8. Deleting merged branch](#28-deleting-merged-branch)
 - [3. How-tos in release process](#3-how-tos-in-release-process)
     - [3.1. Starting release](#31-starting-release)
     - [3.2. Finishing release](#32-finishing-release)
@@ -212,6 +213,17 @@ Once you are happy with the changes in the branch, peform a merge:
 `git merge feature/id_Name --no-ff`  
 `--no -ff` here means no fast forward or *always create a merge commit*. So effectctively you always get a commit which aggregates the whole feature. This way, when the branch is deleted, you can still find it by the commit name. And also check either aggregated changes, or commit by commit.
 
+### 2.8. Deleting merged branch
+
+After merging, the branch can be deleted.
+It can be done with  
+`git push -d branchName` to delete branch on the server  
+`git checkout Development` to go back to development before deleting branch locally  
+`git branch -d branchName` to delete branch locally
+
+Reviewer has to delete both local (if he created it) and remote branches.  
+For author then it is enough to delete only local branch (remote one is deleted by reviewer)
+Others should have only remote branches, e.g. origin/branchName, so running `git fetch --all --prune` as described above will automatically delete all branches which are not any more on the server.
 
 ## 3. How-tos in release process
 

@@ -16,6 +16,7 @@
 <li><a href="#25-finishing-a-feature">2.5. Finishing a feature</a></li>
 <li><a href="#26-reviewing-a-feature">2.6. Reviewing a feature</a></li>
 <li><a href="#27-merging-a-feature">2.7. Merging a feature</a></li>
+<li><a href="#28-deleting-merged-branch">2.8. Deleting merged branch</a></li>
 </ul></li>
 <li><a href="#3-how-tos-in-release-process">3. How-tos in release process</a>
 <ul>
@@ -159,6 +160,13 @@ It is especially useful for big features, because in bitbucket you can comment o
 <p><code>git checkout Development</code><br />
 <code>git merge feature/id_Name --no-ff</code><br />
 <code>--no -ff</code> here means no fast forward or <em>always create a merge commit</em>. So effectctively you always get a commit which aggregates the whole feature. This way, when the branch is deleted, you can still find it by the commit name. And also check either aggregated changes, or commit by commit.</p>
+<h3 id="deleting-merged-branch">2.8. Deleting merged branch</h3>
+<p>After merging, the branch can be deleted. It can be done with<br />
+<code>git push -d branchName</code> to delete branch on the server<br />
+<code>git checkout Development</code> to go back to development before deleting branch locally<br />
+<code>git branch -d branchName</code> to delete branch locally</p>
+<p>Reviewer has to delete both local (if he created it) and remote branches.<br />
+For author then it is enough to delete only local branch (remote one is deleted by reviewer) Others should have only remote branches, e.g. origin/branchName, so running <code>git fetch --all --prune</code> as described above will automatically delete all branches which are not any more on the server.</p>
 <h2 id="how-tos-in-release-process">3. How-tos in release process</h2>
 <h3 id="starting-release">3.1. Starting release</h3>
 <p>Whenever we feel like creating a release, we create a branch release/numberOfRelease. Their we do bugfixes and fine-tuning for the release. This way developers not involved in release can keep working on their features.</p>
