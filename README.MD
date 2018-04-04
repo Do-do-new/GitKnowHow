@@ -149,7 +149,7 @@ In this section you will notice that using feature-branch aproach makes operatio
 If you want to start a new feature, you  
 1) pull Development branch  
     `git checkout Development`  
-    `git pull`
+    `git pull`  
 2) create a new branch at the tip of development branch  
     `git checkout -b feature/id_featureName`  
     Naturally id and featureName are your own, lik1 131_SplashScreen.
