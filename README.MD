@@ -1,25 +1,32 @@
+# Git-flow based tutorial
+
+This is a small guide with some of the git best practices to take most out of git.  
+It is targeted at people having small to medium experience with git.
+
+
 <!-- TOC -->
 
-- [Purpose of this document](#purpose-of-this-document)
-- [Foreword](#foreword)
-- [1. Principles](#1-principles)
-    - [1.1. Saving your progress](#11-saving-your-progress)
-    - [1.2. Branching](#12-branching)
-- [2. How-tos in normal development](#2-how-tos-in-normal-development)
-    - [2.1. Starting a feature](#21-starting-a-feature)
-    - [2.2. Working on a feature](#22-working-on-a-feature)
-    - [2.3. Getting updates from others](#23-getting-updates-from-others)
-    - [2.4. Switching between features](#24-switching-between-features)
-    - [2.5. Finishing a feature](#25-finishing-a-feature)
-    - [2.6. Reviewing a feature](#26-reviewing-a-feature)
-    - [2.7. Merging a feature](#27-merging-a-feature)
-    - [2.8. Deleting merged branch](#28-deleting-merged-branch)
-- [3. How-tos in release process](#3-how-tos-in-release-process)
-    - [3.1. Starting release](#31-starting-release)
-    - [3.2. Finishing release](#32-finishing-release)
-    - [3.3. Starting hotfix](#33-starting-hotfix)
-    - [3.4. Finishing hotfix](#34-finishing-hotfix)
-- [Useful references](#useful-references)
+- [Git-flow based tutorial](#git-flow-based-tutorial)
+    - [Purpose of this document](#purpose-of-this-document)
+    - [Foreword](#foreword)
+    - [1. Principles](#1-principles)
+        - [1.1. Saving your progress](#11-saving-your-progress)
+        - [1.2. Branching](#12-branching)
+    - [2. How-tos in normal development](#2-how-tos-in-normal-development)
+        - [2.1. Starting a feature](#21-starting-a-feature)
+        - [2.2. Working on a feature](#22-working-on-a-feature)
+        - [2.3. Getting updates from others](#23-getting-updates-from-others)
+        - [2.4. Switching between features](#24-switching-between-features)
+        - [2.5. Finishing a feature](#25-finishing-a-feature)
+        - [2.6. Reviewing a feature](#26-reviewing-a-feature)
+        - [2.7. Merging a feature](#27-merging-a-feature)
+        - [2.8. Deleting merged branch](#28-deleting-merged-branch)
+    - [3. How-tos in release process](#3-how-tos-in-release-process)
+        - [3.1. Starting release](#31-starting-release)
+        - [3.2. Finishing release](#32-finishing-release)
+        - [3.3. Starting hotfix](#33-starting-hotfix)
+        - [3.4. Finishing hotfix](#34-finishing-hotfix)
+    - [Useful references](#useful-references)
 
 <!-- /TOC -->
 
@@ -73,6 +80,7 @@ The way branches are used defines git workflow.
 It is very important to fully define how the branches are used and to follow these rules, to take the most out of git.  
 Over the years best practices of using branches were formed, which proved to be very efficient.  
 This part will describe proposed way of using branches based on some of these best practices.
+Principles described here are mostly based on git flow (see [useful references](#useful-references)).
 
 The following best practices are important:
 
